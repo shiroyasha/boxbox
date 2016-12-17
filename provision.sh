@@ -2,23 +2,18 @@
 
 echo "Updating Apt repository"
 sudo apt-get update -qq -y > /dev/null
-sudo apt-get install -qq -y figlet
+sudo apt-get install -qq -y figlet > /dev/null
 
 figlet "Box Box"
 
 echo "Installing Basic Tools"
-sudo apt-get install -qq -y build-essential
-sudo apt-get install -qq -y git
-sudo apt-get install -qq -y tmux
-sudo apt-get install -qq -y zsh
-sudo apt-get install -qq -y vim
-sudo apt-get install -qq -y curl
-sudo apt-get install -qq -y wget
-sudo apt-get install -qq -y firefox
+sudo apt-get install -qq -y git tmux zsh vim curl wget firefox build-essential > /dev/null
+
+echo "Changing shell to zsh"
+chsh -s /bin/zsh
 
 echo "Installing Postgres"
-sudo apt-get install -qq -y postgresql
-sudo apt-get install -qq -y postgresql-contrib
+sudo apt-get install -qq -y postgresql postgresql-contrib > /dev/null
 
 echo "Installing Docker"
 bash /vagrant/scripts/install_docker.sh
@@ -28,3 +23,6 @@ bash /vagrant/scripts/install_rabbitmq.sh
 
 echo "Installing Ruby"
 bash /vagrant/scripts/install_ruby.sh
+
+echo "Installing Node"
+bash /vagrant/scripts/install_node.sh
