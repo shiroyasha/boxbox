@@ -1,28 +1,31 @@
 #!/bin/bash
 
-echo "Updating Apt repository"
+echo "[PROVISIONER] Updating Apt repository"
 sudo apt-get update -qq -y > /dev/null
 sudo apt-get install -qq -y figlet > /dev/null
 
 figlet "Box Box"
 
-echo "Installing Basic Tools"
+echo "[PROVISIONER] Installing Basic Tools"
 sudo apt-get install -qq -y git tmux zsh vim curl wget firefox build-essential > /dev/null
 
-echo "Changing shell to zsh"
-chsh -s /bin/zsh
+echo "[PROVISIONER] Changing shell to zsh"
+sudo chsh -s /bin/zsh
 
-echo "Installing Postgres"
+echo "[PROVISIONER] Installing Postgres"
 sudo apt-get install -qq -y postgresql postgresql-contrib > /dev/null
 
-echo "Installing Docker"
+echo "[PROVISIONER] Installing Docker"
 bash /vagrant/scripts/install_docker.sh
 
-echo "Installing RabbitMQ"
+echo "[PROVISIONER] Installing RabbitMQ"
 bash /vagrant/scripts/install_rabbitmq.sh
 
-echo "Installing Ruby"
+echo "[PROVISIONER] Installing Ruby"
 bash /vagrant/scripts/install_ruby.sh
 
-echo "Installing Node"
+echo "[PROVISIONER] Installing Node"
 bash /vagrant/scripts/install_node.sh
+
+echo "[PROVISIONER] Installing Hub"
+bash /vagrant/scripts/install_hub.sh
