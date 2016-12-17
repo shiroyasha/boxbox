@@ -73,7 +73,7 @@ Then, add an alias an your host machine to `.bashrc`:
 
 ```
 alias bb="cd ~/boxbox && vagrant up && vagrant ssh -c 'tmux -2'"
-alias bhalt="cd ~/boxbox && vagrant up && vagrant ssh -c 'tmux -2'"
+alias bhalt="cd ~/boxbox && vagrant halt"
 ```
 
 ## License
