@@ -1,4 +1,4 @@
-# Box Box
+# Box Box &mdash; The development box
 
 ![Box Box devlopment machine](docs/logo.jpg)
 
@@ -18,7 +18,7 @@ The default shell is `zsh`.
 
 Run the following command:
 
-```
+``` bash
 curl -L https://raw.githubusercontent.com/shiroyasha/boxbox/master/install | bash
 ```
 
