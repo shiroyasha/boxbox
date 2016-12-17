@@ -1,5 +1,7 @@
 # Box Box
 
+![Box Box](docs/logo.jpg)
+
 Simple, no bullshit development box. No ansible, no chef, no pupper. Just Ubuntu 14.04 and simple bash.
 
 It includes:
