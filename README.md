@@ -22,8 +22,6 @@ Run the following command:
 curl -L https://raw.githubusercontent.com/shiroyasha/boxbox/master/install | bash
 ```
 
-note: not yet implemented use the manual installer
-
 ## Usage
 
 Start working:
