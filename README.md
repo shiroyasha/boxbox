@@ -22,7 +22,7 @@ Run the following command:
 curl -L https://raw.githubusercontent.com/shiroyasha/boxbox/master/install | bash
 ```
 
-![Box Box provisioner](docs/provisioner.jpg)
+![Box Box provisioner](docs/provisioner.png)
 
 ## Usage
 
