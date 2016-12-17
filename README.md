@@ -1,6 +1,6 @@
 # Box Box &mdash; The development box
 
-![Box Box devlopment machine](docs/logo.jpg)
+![Box Box development machine](docs/logo.jpg)
 
 Simple, no bullshit development box. No ansible, no chef, no pupper. Just Ubuntu 14.04 and simple bash.
 
@@ -21,6 +21,8 @@ Run the following command:
 ``` bash
 curl -L https://raw.githubusercontent.com/shiroyasha/boxbox/master/install | bash
 ```
+
+![Box Box provisioner](docs/provisioner.jpg)
 
 ## Usage
 
