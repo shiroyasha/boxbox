@@ -17,22 +17,22 @@ The default shell is `zsh`.
 Run the following command:
 
 ```
-curl <some_url> | bash
+curl -L https://raw.githubusercontent.com/shiroyasha/boxbox/master/install | bash
 ```
 
-**NOTE: not yet implemented use the manual installer
+note: not yet implemented use the manual installer
 
 ## Usage
 
-Ftart your box and ssh into it:
+Start working:
 
-```
+``` bash
 $ bb
 ```
 
-When you are done, execute the following to halt your box:
+Stop working:
 
-```
+``` bash
 $ bhalt
 ```
 
