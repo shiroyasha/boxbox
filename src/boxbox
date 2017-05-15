@@ -1,0 +1,87 @@
+#!/bin/bash
+
+function show_logo {
+  echo ''
+  echo ' ____            ____             '
+  echo '| __ )  _____  _| __ )  _____  __ '
+  echo '|  _ \ / _ \ \/ /  _ \ / _ \ \/ / '
+  echo '| |_) | (_) >  <| |_) | (_) >  <  '
+  echo '|____/ \___/_/\_\____/ \___/_/\_\ '
+  echo ''
+}
+
+function show_help {
+  show_logo
+
+  echo 'Commands:'
+  echo ''
+  echo '  help    - Display this message'
+  echo '  status  - Show the status of the box'
+  echo '  migrate - Run migrations'
+  echo '  new     - Generate a new migration'
+  echo ''
+}
+
+function show_status {
+  status_file="/var/run/boxbox_migration"
+
+  if [ -f $status_file ]; then
+    last_migration=$(cat $status_file)
+  else
+    last_migration="0"
+  fi
+
+  echo $last_migration
+}
+ 
+function migrate {
+  show_logo
+
+  echo "Running Migrations" 
+}
+
+function new_migration {
+  timestamp=$(date +"%s")
+  migrations_dir="/vagrant/migrations"
+
+  mkdir -p $migrations_dir
+
+  migration_filename="${migrations_dir}/${timestamp}_$1"
+
+  echo "echo 'Something Awesome'" > $migrations_dir
+
+  echo 'Created migration:'
+  echo "  migrations/${migrations_path}.sh"
+}
+
+
+#################
+# CLI Interface #
+#################
+
+if [ -z $1 ] || [ $1 = "help" ]; then
+  show_help
+fi
+
+if [ "$1" = "status" ]; then
+  show_status
+fi
+
+if [ "$1" = "migrate" ]; then
+  migrate
+fi
+
+if [ "$1" = "new" ]; then
+  if [ -z $2 ]; then
+    echo 'Name of the migration is not provided'
+    echo ''
+    echo 'Example usage:' 
+    echo ''
+    echo '  boxbox new install_vim_8'
+    echo ''
+
+    exit 1
+  fi
+
+  new_migration $2
+fi

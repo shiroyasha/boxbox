@@ -36,7 +36,7 @@ Vagrant.configure(2) do |config|
   config.vm.network "private_network", :ip => "10.20.30.40"
 
   # run provision.sh when the box is started for the first time
-  config.vm.provision "shell", :privileged => false, :inline => "bash /vagrant/provision.sh"
+  config.vm.provision "shell", :privileged => false, :inline => "mv /vagrant/src/boxbox /usr/bin/boxbox && chmod +x /usr/bin/boxbox"
 
   # make 'boxbox' available in your browser
   config.hostmanager.enabled = true
