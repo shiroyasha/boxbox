@@ -3,6 +3,7 @@
 # install docker
 if ! which docker > /dev/null; then
   curl -L https://get.docker.com | bash > /dev/null
+  sudo usermod -aG docker $USER
 fi
 
 # install docker compose
