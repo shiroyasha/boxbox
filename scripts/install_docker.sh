@@ -7,6 +7,7 @@ fi
 
 # install docker compose
 if ! which docker-compose > /dev/null; then
-  curl https://bootstrap.pypa.io/get-pip.py | python
-  sudo pip install docker-compose
+  curl -s https://bootstrap.pypa.io/get-pip.py -o /tmp/pip.py
+  sudo python /tmp/pip.py > /dev/null
+  sudo pip install docker-compose > /dev/null
 fi
