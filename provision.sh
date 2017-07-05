@@ -17,14 +17,14 @@ sudo apt-get install -y figlet \
 
 
 echo "[PROVISIONER] Setting up zsh"
-# sudo chsh -s /bin/zsh vagrant
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+sudo chsh -s /bin/zsh vagrant
+# sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
 echo "[PROVISIONER] Setting up vim"
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
 echo "[PROVISIONER] Installing Hub"
-wget -q https://github.com/github/hub/releases/download/v2.2.9/hub-linux-amd64-2.2.9.tgz
+wget https://github.com/github/hub/releases/download/v2.2.9/hub-linux-amd64-2.2.9.tgz
 tar xvzf hub-linux-amd64-2.2.9.tgz
 cd hub-linux-amd64-2.2.9
 sudo chmod +x install
