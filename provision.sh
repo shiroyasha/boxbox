@@ -2,22 +2,22 @@
 
 set -eou pipefail
 
-sudo apt-get update -qq -y
+sudo apt-get update -y
 
 echo "[PROVISIONER] Installing Basic Tools"
-sudo apt-get install -qq -y figlet \
-                            git \
-		            vim \
-                            tmux \
-                            zsh \
-                            curl \
-                            wget \
-                            firefox \
-                            build-essential
+sudo apt-get install -y figlet \
+                        git \
+                        vim \
+                        tmux \
+                        zsh \
+                        curl \
+                        wget \
+                        firefox \
+                        build-essential
 
 
 echo "[PROVISIONER] Setting up zsh"
-sudo chsh -s /bin/zsh vagrant
+# sudo chsh -s /bin/zsh vagrant
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
 echo "[PROVISIONER] Setting up vim"
