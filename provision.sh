@@ -49,5 +49,12 @@ wget https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb && sudo 
 sudo apt-get update
 sudo apt-get install -y esl-erlang elixir
 
+echo "[PROVISIONER] Installing ruby"
+sudo apt-get -y install software-properties-common
+sudo apt-add-repository ppa:brightbox/ruby-ng
+sudo apt-get update
+sudo apt-get -y install ruby2.3
+gem install bundler
+
 echo "[PROVISIONER] Done"
 figlet "Box Box"
