@@ -56,5 +56,8 @@ sudo apt-get update
 sudo apt-get -y install ruby2.3
 sudo gem install bundler
 
+echo "[PROVISIONER] Reducing box size"
+sudo bash <(curl -s https://gist.githubusercontent.com/adrienbrault/3775253/raw/da59136ef0414af151b917bd25a06882f0107947/purge.sh)
+
 echo "[PROVISIONER] Done"
 figlet "Box Box"
