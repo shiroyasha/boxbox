@@ -54,7 +54,7 @@ sudo apt-get -y install software-properties-common
 sudo apt-add-repository ppa:brightbox/ruby-ng
 sudo apt-get update
 sudo apt-get -y install ruby2.3
-gem install bundler
+sudo gem install bundler
 
 echo "[PROVISIONER] Done"
 figlet "Box Box"
