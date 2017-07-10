@@ -56,8 +56,25 @@ sudo apt-get update
 sudo apt-get -y install ruby2.3
 sudo gem install bundler
 
+
+# extract me :)
+
 echo "[PROVISIONER] Reducing box size"
-sudo bash <(curl -s https://gist.githubusercontent.com/adrienbrault/3775253/raw/da59136ef0414af151b917bd25a06882f0107947/purge.sh)
+sudo aptitude -y purge ri
+sudo aptitude -y purge installation-report landscape-common wireless-tools wpasupplicant ubuntu-serverguide
+sudo aptitude -y purge python-dbus libnl1 python-smartpm python-twisted-core libiw30
+sudo aptitude -y purge python-twisted-bin libdbus-glib-1-2 python-pexpect python-pycurl python-serial python-gobject python-pam python-openssl libffi5
+sudo apt-get clean -y
+sudo apt-get autoclean -y
+sudo apt-get autoremove -y
+
+echo "[PROVISIONER] Remove bash history"
+unset HISTFILE
+sudo rm -f /root/.bash_history
+sudo rm -f /home/vagrant/.bash_history
+
+echo "[PROVISIONER] Cleanup log files"
+find /var/log -type f | while read f; do echo -ne '' > $f; done;
 
 echo "[PROVISIONER] Done"
 figlet "Box Box"
