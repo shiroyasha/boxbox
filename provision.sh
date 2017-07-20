@@ -73,8 +73,9 @@ gem install bundler
 
 echo "[PROVISIONER] Export path to Ruby executables"
 echo "export PATH=\"\$HOME/.gem/ruby/2.3.0/bin:\$PATH\"" >> ~/.zshrc
+source ~/.zshrc
 
-echo "[PROVISIONER] Installing ruby"
+echo "[PROVISIONER] Installing rails"
 gem install rails -v 4.2.8
 
 # extract me :)
