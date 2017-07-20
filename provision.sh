@@ -5,7 +5,11 @@ set -eou pipefail
 sudo apt-get update -y
 
 echo "[PROVISIONER] Installing Basic Tools"
-sudo apt-get install -y htop figlet git vim tmux zsh curl wget firefox build-essential
+sudo apt-get install -y htop figlet git vim tmux zsh curl wget build-essential xauth
+
+echo "[PROVISIONER] Installing Firefox"
+wget https://sourceforge.net/projects/ubuntuzilla/files/mozilla/apt/pool/main/f/firefox-mozilla-build/firefox-mozilla-build_46.0.1-0ubuntu1_amd64.deb
+sudo dpkg -i firefox-mozilla-build_46.0.1-0ubuntu1_amd64.deb
 
 echo "[PROVISIONER] Setting up zsh"
 sudo chsh -s /bin/zsh vagrant
@@ -56,7 +60,6 @@ sudo apt-get update
 sudo apt-get -y install ruby2.3
 sudo gem install bundler
 
-
 # extract me :)
 
 echo "[PROVISIONER] Reducing box size"
@@ -72,9 +75,6 @@ echo "[PROVISIONER] Remove bash history"
 unset HISTFILE
 sudo rm -f /root/.bash_history
 sudo rm -f /home/vagrant/.bash_history
-
-echo "[PROVISIONER] Cleanup log files"
-find /var/log -type f | while read f; do echo -ne '' > $f; done;
 
 echo "[PROVISIONER] Done"
 figlet "Box Box"
