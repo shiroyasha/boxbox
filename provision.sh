@@ -53,12 +53,22 @@ wget https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb && sudo 
 sudo apt-get update
 sudo apt-get install -y esl-erlang elixir
 
+echo "[PROVISIONER] Installing node.js"
+curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+sudo apt-get install -y nodejs
+
 echo "[PROVISIONER] Installing ruby"
 sudo apt-get -y install software-properties-common
 sudo apt-add-repository ppa:brightbox/ruby-ng
 sudo apt-get update
 sudo apt-get -y install ruby2.3
-sudo gem install bundler
+gem install bundler
+
+echo "[PROVISIONER] Export path to Ruby executables"
+echo "export PATH=\"\$HOME/.gem/ruby/2.3.0/bin:\$PATH\"" >> ~/.zshrc
+
+echo "[PROVISIONER] Installing ruby"
+gem install rails -v 4.2.8
 
 # extract me :)
 
