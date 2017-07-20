@@ -28,17 +28,21 @@ sudo apt-get install -qq -y \
   figlet \
   git \
   htop \
+  liblzma-dev \
   nodejs \
+  patch \
   postgresql \
   postgresql-contrib \
   rabbitmq-server \
   redis-server \
+  ruby-dev \
   ruby2.3 \
   tmux \
   vim \
   wget \
   xauth \
-  zsh
+  zlib1g-dev \
+  zsh \
 
 echo "[PROVISIONER] Installing Firefox"
 wget https://sourceforge.net/projects/ubuntuzilla/files/mozilla/apt/pool/main/f/firefox-mozilla-build/firefox-mozilla-build_46.0.1-0ubuntu1_amd64.deb
@@ -64,8 +68,8 @@ sudo pip install docker-compose > /dev/null
 
 echo "[PROVISIONER] Installing gems"
 echo "export PATH=\"\$HOME/.gem/ruby/2.3.0/bin:\$PATH\"" >> ~/.zshrc
-gem install rails -v 4.2.8 --no-ri --no-rdoc
-gem install bundler --no-ri --no-rdoc
+sudo gem install rails -v 4.2.8 --no-ri --no-rdoc
+sudo gem install bundler --no-ri --no-rdoc
 
 echo "[PROVISIONER] Done"
 figlet "Box Box"
