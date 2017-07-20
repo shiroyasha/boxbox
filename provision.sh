@@ -7,6 +7,7 @@ sudo apt-get update -y
 echo "[PROVISIONER] Installing Basic Tools"
 sudo apt-get install -y htop figlet git vim tmux zsh curl wget build-essential xauth
 
+echo "[PROVISIONER] Installing Firefox"
 wget https://sourceforge.net/projects/ubuntuzilla/files/mozilla/apt/pool/main/f/firefox-mozilla-build/firefox-mozilla-build_46.0.1-0ubuntu1_amd64.deb
 sudo dpkg -i firefox-mozilla-build_46.0.1-0ubuntu1_amd64.deb
 
@@ -58,7 +59,6 @@ sudo apt-add-repository ppa:brightbox/ruby-ng
 sudo apt-get update
 sudo apt-get -y install ruby2.3
 sudo gem install bundler
-
 
 # extract me :)
 
