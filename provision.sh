@@ -62,6 +62,13 @@ sudo apt-get -y install software-properties-common
 sudo apt-add-repository ppa:brightbox/ruby-ng
 sudo apt-get update
 sudo apt-get -y install ruby2.3
+
+echo "gem: --user-install --no-document --no-ri --no-rdoc" > ~/.gemrc
+echo "benchmark: false" >> ~/.gemrc
+echo "verbose: false" >> ~/.gemrc
+echo "update_sources: true" >> ~/.gemrc
+echo "backtrace: true" >> ~/.gemrc
+
 gem install bundler
 
 echo "[PROVISIONER] Export path to Ruby executables"
