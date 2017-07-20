@@ -76,8 +76,5 @@ unset HISTFILE
 sudo rm -f /root/.bash_history
 sudo rm -f /home/vagrant/.bash_history
 
-echo "[PROVISIONER] Cleanup log files"
-find /var/log -type f | while read f; do echo -ne '' > $f; done;
-
 echo "[PROVISIONER] Done"
 figlet "Box Box"
