@@ -2,10 +2,12 @@
 
 set -eou pipefail
 
-sudo apt-get update -y
+echo "[PROVISIONER] Installing Docker"
+curl -L https://get.docker.com | bash > /dev/null
+sudo usermod -aG docker vagrant
 
 echo "[PROVISIONER] Installing Basic Tools"
-sudo apt-get install -y htop figlet git vim tmux zsh curl wget build-essential xauth
+sudo apt-get install -y htop git vim tmux zsh curl wget build-essential xauth
 
 echo "[PROVISIONER] Installing Firefox"
 wget https://sourceforge.net/projects/ubuntuzilla/files/mozilla/apt/pool/main/f/firefox-mozilla-build/firefox-mozilla-build_46.0.1-0ubuntu1_amd64.deb
@@ -22,10 +24,6 @@ echo "[PROVISIONER] Installing Hub"
 wget https://github.com/github/hub/releases/download/v2.2.9/hub-linux-amd64-2.2.9.tgz
 tar xvzf hub-linux-amd64-2.2.9.tgz
 cd hub-linux-amd64-2.2.9 && sudo chmod +x install && sudo ./install && cd -
-
-echo "[PROVISIONER] Installing Docker"
-curl -L https://get.docker.com | bash > /dev/null
-sudo usermod -aG docker $USER
 
 echo "[PROVISIONER] Installing Docker Compose"
 curl -s https://bootstrap.pypa.io/get-pip.py -o /tmp/pip.py
@@ -62,29 +60,4 @@ sudo apt-get -y install software-properties-common
 sudo apt-add-repository ppa:brightbox/ruby-ng
 sudo apt-get update
 sudo apt-get -y install ruby2.3
-gem install bundler
-
-echo "[PROVISIONER] Export path to Ruby executables"
-echo "export PATH=\"\$HOME/.gem/ruby/2.3.0/bin:\$PATH\"" >> ~/.zshrc
-
-echo "[PROVISIONER] Installing ruby"
-gem install rails -v 4.2.8
-
-# extract me :)
-
-echo "[PROVISIONER] Reducing box size"
-sudo aptitude -y purge ri
-sudo aptitude -y purge installation-report landscape-common wireless-tools wpasupplicant ubuntu-serverguide
-sudo aptitude -y purge python-dbus libnl1 python-smartpm python-twisted-core libiw30
-sudo aptitude -y purge python-twisted-bin libdbus-glib-1-2 python-pexpect python-pycurl python-serial python-gobject python-pam python-openssl libffi5
-sudo apt-get clean -y
-sudo apt-get autoclean -y
-sudo apt-get autoremove -y
-
-echo "[PROVISIONER] Remove bash history"
-unset HISTFILE
-sudo rm -f /root/.bash_history
-sudo rm -f /home/vagrant/.bash_history
-
-echo "[PROVISIONER] Done"
-figlet "Box Box"
+sudo gem install bundler
