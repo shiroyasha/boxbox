@@ -1,5 +1,7 @@
 # Box Box &mdash; The development box
 
+[![Build Status](https://semaphoreci.com/api/v1/renderedtext/boxbox/branches/master/badge.svg)](https://semaphoreci.com/renderedtext/boxbox)
+
 ![Box Box development machine](https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Anime_Expo_2011_-_box_robot_%285917932244%29.jpg/450px-Anime_Expo_2011_-_box_robot_%285917932244%29.jpg)
 
 Simple, no bullshit development box, ideal for docker based development.
