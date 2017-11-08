@@ -1,6 +1,6 @@
 # Box Box &mdash; The development box
 
-![Box Box development machine](docs/logo.jpg)
+![Box Box development machine](https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Anime_Expo_2011_-_box_robot_%285917932244%29.jpg/450px-Anime_Expo_2011_-_box_robot_%285917932244%29.jpg)
 
 Simple, no bullshit development box, ideal for docker based development.
 
@@ -12,13 +12,41 @@ It includes:
 
 ## Installation
 
-Run the following command:
+First, make sure that you have Vagrant, VirtualBox installed:
 
-``` bash
-curl -L https://raw.githubusercontent.com/shiroyasha/boxbox/master/install | bash
+```
+$ vagrant --version
+Vagrant 1.8.1
+
+$ vboxmanage --version
+5.0.4r102546
 ```
 
-![Box Box provisioner](docs/provisioner.png)
+Then, install vagrant host manager:
+
+``` bash
+vagrant plugin install vagrant-hostmanager
+```
+
+Then, clone the directory:
+
+``` bash
+git clone https://github.com/renderedtext/boxbox.git ~/boxbox
+cd ~/boxbox
+```
+
+Then, provision your box:
+
+``` bash
+vagrant up
+```
+
+Then, add an alias an your host machine to `.bashrc` or `.zhsrc`:
+
+```
+alias bb="cd ~/boxbox && vagrant up && vagrant ssh -c 'tmux -2'"
+alias bhalt="cd ~/boxbox && vagrant halt"
+```
 
 ## Usage
 
@@ -34,48 +62,42 @@ Stop working:
 $ bhalt
 ```
 
-## (Optional) Manual Installation
+In the machine, try to keep all your projects in one directory like `~/code` or `~/workplace`.
+This will allow you to easily upgrade boxbox versions when necessary.
 
-First, make sure that you have Vagrant, VirtualBox installed:
+## How to rebuild your boxbox without loosing your projects?
 
-```
-$ vagrant --version
-Vagrant 1.8.1
+Assuming that you keep your projects in the `~/code` directory, you need to:
 
-$ vboxmanage --version
-5.0.4r102546
-```
+In the boxbox machine:
 
-Then, install vagrant host manager:
-
-```
-vagrant plugin install vagrant-hostmanager
+``` bash
+# move your projects to the host machine
+cp ~/code /vagrant/code
 ```
 
-Then, clone the directory:
+On the host machine:
 
-```
-git clone https://github.com/shiroyasha/boxbox.git ~/boxbox
-cd ~/boxbox
-```
+``` bash
+# destroy the vagrant image
+vagrant destroy
 
-Then, provision your box:
-
-```
+# rebuild your vagrant image
 vagrant up
 ```
 
-Then, add an alias an your host machine to `.bashrc`:
+In the newly created image, copy your projects back to their original place:
 
+``` bash
+cp /vagrant/code ~/code
 ```
-alias bb="cd ~/boxbox && vagrant up && vagrant ssh -c 'tmux -2'"
-alias bhalt="cd ~/boxbox && vagrant halt"
-```
+
+Everything should work.
 
 ## License
 
 The MIT License (MIT)
-Copyright (c) 2016 Igor Sarcevic
+Copyright (c) 2017 RenderedText
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"),
