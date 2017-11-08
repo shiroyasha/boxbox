@@ -67,6 +67,18 @@ $ bhalt
 In the machine, try to keep all your projects in one directory like `~/code` or `~/workplace`.
 This will allow you to easily upgrade boxbox versions when necessary.
 
+Access your box from the browser:
+
+``` bash
+http://boxbox:<port>
+```
+
+Or, you can do it via the static IP address:
+
+``` bash
+http://10.20.30.40:<port>
+```
+
 ## How to rebuild your boxbox without loosing your projects?
 
 Assuming that you keep your projects in the `~/code` directory, you need to:
