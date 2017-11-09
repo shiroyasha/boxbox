@@ -24,26 +24,26 @@ $ vboxmanage --version
 5.0.4r102546
 ```
 
-Then, install vagrant host manager:
+Install vagrant host manager:
 
 ``` bash
 vagrant plugin install vagrant-hostmanager
 ```
 
-Then, clone the directory:
+Clone the directory:
 
 ``` bash
 git clone https://github.com/renderedtext/boxbox.git ~/boxbox
 cd ~/boxbox
 ```
 
-Then, provision your box:
+Provision your box:
 
 ``` bash
 vagrant up
 ```
 
-Then, add an alias an your host machine to `.bashrc` or `.zhsrc`:
+Add an alias an your host machine to `.bashrc` or `.zhsrc`:
 
 ```
 alias bb="cd ~/boxbox && vagrant up && vagrant ssh -c 'tmux -2'"
@@ -66,6 +66,26 @@ $ bhalt
 
 In the machine, try to keep all your projects in one directory like `~/code` or `~/workplace`.
 This will allow you to easily upgrade boxbox versions when necessary.
+
+Access your box from the browser:
+
+``` bash
+http://boxbox:<port>
+```
+
+Or, you can do it via the static IP address:
+
+``` bash
+http://10.20.30.40:<port>
+```
+
+If you are running a web application inside of boxbox, make sure to attach to the 
+`0.0.0.0` network interface. This will allow it to be visible from your host. 
+For Rails, this can be achieved with:
+
+``` bash
+bundle exec rails -b 0.0.0.0
+```
 
 ## How to rebuild your boxbox without loosing your projects?
 
