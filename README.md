@@ -6,12 +6,6 @@
 
 Simple, no bullshit development box, ideal for docker based development.
 
-It includes:
-
-- Basic tools (git, curl, vim)
-- Docker and docker compose
-- zsh and oh-my-zsh
-
 ## Installation
 
 First, make sure that you have Vagrant, VirtualBox installed:
@@ -115,6 +109,26 @@ cp /vagrant/code ~/code
 ```
 
 Everything should work.
+
+
+## What should be included in the boxbox?
+
+BoxBox aims to remain simple and clean. When adding new packages always check if the new package
+has a wide use case, useful for many projects. Please avoid optimization for one project only.
+
+Rules of thumb:
+
+- ✅ We should install languages, databases, and background services for communication 
+in boxbox directly. These are widely used, very generic tools.
+
+- ✅ Common linux utilies like wget, curl, htop, ncdu, aws-cli, vim, zsh should 
+also be installed in the boxbox. They have a wide use-case, necessary in every project.
+
+- ❌ Gem dependancies like libicu should be managed on per-repository basis.
+
+- ❌ cmake is in the gray area. It is a widely used tool, but we use it only for one project. 
+It can be installed globally, or per-repo. In this case, we should be conservative and only
+install it globally if more than one project requires it.
 
 ## License
 
