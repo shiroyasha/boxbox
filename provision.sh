@@ -31,7 +31,10 @@ sudo python /tmp/pip.py > /dev/null
 sudo pip install docker-compose > /dev/null
 
 echo "[PROVISIONER] Installing postgresql"
-sudo apt-get install -y postgresql postgresql-contrib
+sudo add-apt-repository "deb https://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main"
+wget --quiet -O - https://postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add - 
+sudo apt-get update
+sudo apt-get install -y postgresql-9.4 postgresql-contrib
 sudo update-rc.d postgresql enable
 sudo service postgresql start
 
