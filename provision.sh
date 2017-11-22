@@ -62,6 +62,9 @@ echo "[PROVISIONER] Installing node.js"
 curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
 sudo apt-get install -y nodejs
 
+echo "[PROVISIONER] Installing yarn"
+sudo npm install -g yarn
+
 echo "[PROVISIONER] Installing ruby"
 sudo apt-get -y install software-properties-common
 sudo apt-add-repository ppa:brightbox/ruby-ng

@@ -42,6 +42,10 @@ echo -e "\n[TEST] Testing npm version"
 npm --version
 npm --version | grep "5.5"
 
+echo -e "\n[TEST] Testing yarn version"
+yarn --version
+yarn --version | grep "1.3"
+
 echo -e "\n[TEST] Erlang version"
 elixir --version
 elixir --version | grep "Erlang/OTP 20"
