@@ -31,9 +31,15 @@ sudo python /tmp/pip.py > /dev/null
 sudo pip install docker-compose > /dev/null
 
 echo "[PROVISIONER] Installing postgresql"
-sudo apt-get install -y postgresql postgresql-contrib
+sudo add-apt-repository "deb https://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main"
+wget --quiet -O - https://postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+sudo apt-get update
+sudo apt-get install -y postgresql-client-9.4 postgresql-9.4 postgresql-contrib-9.4 libpq-dev postgresql-server-dev-9.4
 sudo update-rc.d postgresql enable
 sudo service postgresql start
+
+echo "[PROVISIONER] Creating postgres superuser 'developer'"
+createuser developer --superuser --password developer
 
 echo "[PROVISIONER] Installing rabbitmq"
 echo 'deb http://www.rabbitmq.com/debian/ testing main' | sudo tee /etc/apt/sources.list.d/rabbitmq.list
@@ -59,5 +65,5 @@ echo "[PROVISIONER] Installing ruby"
 sudo apt-get -y install software-properties-common
 sudo apt-add-repository ppa:brightbox/ruby-ng
 sudo apt-get update
-sudo apt-get -y install ruby2.3
+sudo apt-get -y install ruby2.3 ruby2.3-dev
 sudo gem install bundler
