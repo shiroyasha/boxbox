@@ -15,6 +15,9 @@ echo -e "\n[TEST] Testing postgres version"
 psql --version
 psql --version | grep "(PostgreSQL) 9.4"
 
+echo -e "\n[TEST] Testing postgres 'developer' user presence with CREATEDB role"
+sudo -u postgres psql -c "\du" | grep "developer | Create DB"
+
 echo -e "\n[TEST] Testing hub version"
 hub --version
 hub --version | grep "hub version 2.2.9"

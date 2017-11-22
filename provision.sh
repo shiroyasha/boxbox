@@ -38,6 +38,10 @@ sudo apt-get install -y postgresql-client-9.4 postgresql-9.4 postgresql-contrib-
 sudo update-rc.d postgresql enable
 sudo service postgresql start
 
+echo "[PROVISIONER] Creating postgres user 'developer' with CREATEDB privilege"
+sudo -u postgres bash -c "psql -c \"CREATE USER developer WITH PASSWORD 'developer';\""
+sudo -u postgres bash -c "psql -c \"ALTER USER developer CREATEDB;\""
+
 echo "[PROVISIONER] Installing rabbitmq"
 echo 'deb http://www.rabbitmq.com/debian/ testing main' | sudo tee /etc/apt/sources.list.d/rabbitmq.list
 wget -O- https://www.rabbitmq.com/rabbitmq-release-signing-key.asc | sudo apt-key add -
