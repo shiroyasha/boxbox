@@ -15,6 +15,9 @@ echo -e "\n[TEST] Testing postgres version"
 psql --version
 psql --version | grep "(PostgreSQL) 9.4"
 
+echo -e "\n[TEST] Testing postgres developer superuser presence"
+sudo -u postgres psql -c "\du" | grep "developer | Superuser"
+
 echo -e "\n[TEST] Testing hub version"
 hub --version
 hub --version | grep "hub version 2.2.9"
