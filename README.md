@@ -81,6 +81,22 @@ For Rails, this can be achieved with:
 bundle exec rails -b 0.0.0.0
 ```
 
+## Change the timezone
+
+Default timezone is set to Belgrade (UTC+01:00)
+
+To change this, first remove `localtime` symlink in `/etc` with:
+
+```bash
+sudo rm -rf /etc/localtime
+```
+
+Then set timezone to your timezone (e.g. US/Alaska):
+
+```bash
+sudo ln -s /usr/share/zoneinfo/US/Alaska /etc/localtime
+```
+
 ## How to rebuild your boxbox without loosing your projects?
 
 Assuming that you keep your projects in the `~/code` directory, you need to:
