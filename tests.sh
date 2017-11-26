@@ -62,4 +62,7 @@ echo -e "\n[TEST] Docker compose version"
 docker-compose --version
 docker-compose --version | grep "docker-compose version 1.17"
 
+echo -e "\n[TEST] ack-grep"
+ack-grep "export" ~/.zshrc
+
 echo -e "\nTests passed"
