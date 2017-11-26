@@ -71,3 +71,6 @@ sudo apt-add-repository ppa:brightbox/ruby-ng
 sudo apt-get update
 sudo apt-get -y install ruby2.3 ruby2.3-dev
 sudo gem install bundler
+
+echo "[PROVISIONER] Set up timezone to Belgrade"
+sudo ln -s /usr/share/zoneinfo/Europe/Belgrade /etc/localtime
