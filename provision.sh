@@ -73,4 +73,5 @@ sudo apt-get -y install ruby2.3 ruby2.3-dev
 sudo gem install bundler
 
 echo "[PROVISIONER] Set up timezone to Belgrade"
+sudo rm -rf /etc/localtime
 sudo ln -s /usr/share/zoneinfo/Europe/Belgrade /etc/localtime
