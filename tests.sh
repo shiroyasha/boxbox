@@ -7,6 +7,9 @@ export LC_ALL="en_US.UTF-8"
 echo -e "\n[TEST] Testing shell"
 cat /etc/passwd | grep "vagrant" | grep "/bin/zsh"
 
+echo -e "\n[TEST] Testing timezone"
+date | grep "CET"
+
 echo -e "\n[TEST] Testing vim version"
 vim --version
 vim --version | grep "VIM - Vi IMproved 7.4"
