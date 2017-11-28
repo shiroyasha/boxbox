@@ -72,6 +72,12 @@ sudo apt-get update
 sudo apt-get -y install ruby2.3 ruby2.3-dev
 sudo gem install bundler
 
+
+echo "[PROVISIONER] Installing awscli"
+pip install awscli --upgrade --user
+echo "export PATH=~/.local/bin:\$PATH" >> ~/.zshrc
+echo "export PATH=~/.local/bin:\$PATH" >> ~/.bashrc
+
 echo "[PROVISIONER] Set up timezone to Belgrade"
 sudo rm -rf /etc/localtime
 sudo ln -s /usr/share/zoneinfo/Europe/Belgrade /etc/localtime
