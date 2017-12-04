@@ -68,7 +68,7 @@ docker-compose --version | grep "docker-compose version 1.17"
 echo -e "\n[TEST] AWS cli version"
 export PATH=~/.local/bin:$PATH
 aws --version 2>&1
-aws --version 2>&1 | grep "1.12"
+aws --version 2>&1 | grep "1."
 
 echo -e "\n[TEST] ack-grep version"
 ack-grep --version
