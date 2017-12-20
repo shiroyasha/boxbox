@@ -7,7 +7,7 @@ curl -L https://get.docker.com | bash > /dev/null
 sudo usermod -aG docker vagrant
 
 echo "[PROVISIONER] Installing Basic Tools"
-sudo apt-get install -y htop git vim tmux zsh curl wget build-essential xauth ack-grep
+sudo apt-get install -y htop git vim tmux zsh curl wget build-essential xauth ack-grep python-pip
 
 echo "[PROVISIONER] Installing Firefox"
 wget https://sourceforge.net/projects/ubuntuzilla/files/mozilla/apt/pool/main/f/firefox-mozilla-build/firefox-mozilla-build_46.0.1-0ubuntu1_amd64.deb
@@ -26,9 +26,8 @@ tar xvzf hub-linux-amd64-2.2.9.tgz
 cd hub-linux-amd64-2.2.9 && sudo chmod +x install && sudo ./install && cd -
 
 echo "[PROVISIONER] Installing Docker Compose"
-curl -s https://bootstrap.pypa.io/get-pip.py -o /tmp/pip.py
-sudo python /tmp/pip.py > /dev/null
-sudo pip install docker-compose > /dev/null
+sudo curl -L https://github.com/docker/compose/releases/download/1.18.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
 
 echo "[PROVISIONER] Installing postgresql"
 sudo add-apt-repository "deb https://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main"
