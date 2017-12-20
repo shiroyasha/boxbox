@@ -63,7 +63,7 @@ docker --version | grep "Docker version 17"
 
 echo -e "\n[TEST] Docker compose version"
 docker-compose --version
-docker-compose --version | grep "docker-compose version 1.17"
+docker-compose --version | grep "docker-compose version 1.18"
 
 echo -e "\n[TEST] AWS cli version"
 export PATH=~/.local/bin:$PATH
