@@ -2,12 +2,16 @@
 
 set -eou pipefail
 
+echo "[PROVISIONER] Set up timezone to Belgrade"
+sudo rm -rf /etc/localtime
+sudo ln -s /usr/share/zoneinfo/Europe/Belgrade /etc/localtime
+
 echo "[PROVISIONER] Installing Docker"
 curl -L https://get.docker.com | bash > /dev/null
 sudo usermod -aG docker vagrant
 
 echo "[PROVISIONER] Installing Basic Tools"
-sudo apt-get install -y htop git vim tmux zsh curl wget build-essential xauth
+sudo apt-get install -y htop git vim tmux zsh curl wget build-essential xauth ack-grep
 
 echo "[PROVISIONER] Installing Firefox"
 wget https://sourceforge.net/projects/ubuntuzilla/files/mozilla/apt/pool/main/f/firefox-mozilla-build/firefox-mozilla-build_46.0.1-0ubuntu1_amd64.deb
@@ -31,9 +35,16 @@ sudo python /tmp/pip.py > /dev/null
 sudo pip install docker-compose > /dev/null
 
 echo "[PROVISIONER] Installing postgresql"
-sudo apt-get install -y postgresql postgresql-contrib
+sudo add-apt-repository "deb https://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main"
+wget --quiet -O - https://postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+sudo apt-get update
+sudo apt-get install -y postgresql-client-9.4 postgresql-9.4 postgresql-contrib-9.4 libpq-dev postgresql-server-dev-9.4
 sudo update-rc.d postgresql enable
 sudo service postgresql start
+
+echo "[PROVISIONER] Creating postgres user 'developer' with CREATEDB privilege"
+sudo -u postgres bash -c "psql -c \"CREATE USER developer WITH PASSWORD 'developer';\""
+sudo -u postgres bash -c "psql -c \"ALTER USER developer CREATEDB;\""
 
 echo "[PROVISIONER] Installing rabbitmq"
 echo 'deb http://www.rabbitmq.com/debian/ testing main' | sudo tee /etc/apt/sources.list.d/rabbitmq.list
@@ -55,9 +66,29 @@ echo "[PROVISIONER] Installing node.js"
 curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
 sudo apt-get install -y nodejs
 
+echo "[PROVISIONER] Installing yarn"
+sudo npm install -g yarn
+
 echo "[PROVISIONER] Installing ruby"
 sudo apt-get -y install software-properties-common
 sudo apt-add-repository ppa:brightbox/ruby-ng
 sudo apt-get update
-sudo apt-get -y install ruby2.3
+sudo apt-get -y install ruby2.3 ruby2.3-dev
 sudo gem install bundler
+
+echo "[PROVISIONER] Installing awscli"
+pip install awscli --upgrade --user
+echo "export PATH=~/.local/bin:\$PATH" >> ~/.zshrc
+echo "export PATH=~/.local/bin:\$PATH" >> ~/.bashrc
+
+echo "[PROVISIONER] Installing gcloud and kubectl"
+export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)"
+echo "deb http://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+sudo apt-get update -qq
+sudo apt-get install -y google-cloud-sdk kubectl
+
+echo "[PROVISIONER] Installing minikube"
+curl -Lo minikube https://storage.googleapis.com/minikube/releases/v0.24.1/minikube-linux-amd64 
+chmod +x minikube 
+sudo mv minikube /usr/local/bin/
