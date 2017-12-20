@@ -2,6 +2,10 @@
 
 set -eou pipefail
 
+echo "[PROVISIONER] Set up timezone to Belgrade"
+sudo rm -rf /etc/localtime
+sudo ln -s /usr/share/zoneinfo/Europe/Belgrade /etc/localtime
+
 echo "[PROVISIONER] Installing Docker"
 curl -L https://get.docker.com | bash > /dev/null
 sudo usermod -aG docker vagrant
@@ -72,12 +76,14 @@ sudo apt-get update
 sudo apt-get -y install ruby2.3 ruby2.3-dev
 sudo gem install bundler
 
-
 echo "[PROVISIONER] Installing awscli"
 pip install awscli --upgrade --user
 echo "export PATH=~/.local/bin:\$PATH" >> ~/.zshrc
 echo "export PATH=~/.local/bin:\$PATH" >> ~/.bashrc
 
-echo "[PROVISIONER] Set up timezone to Belgrade"
-sudo rm -rf /etc/localtime
-sudo ln -s /usr/share/zoneinfo/Europe/Belgrade /etc/localtime
+echo "[PROVISIONER] Installing gcloud and kubectl"
+export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)"
+echo "deb http://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+sudo apt-get update -qq
+sudo apt-get install -y google-cloud-sdk kubectl
