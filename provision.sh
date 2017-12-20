@@ -86,3 +86,8 @@ echo "deb http://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" | sudo tee 
 curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
 sudo apt-get update -qq
 sudo apt-get install -y google-cloud-sdk kubectl
+
+echo "[PROVISIONER] Installing minikube"
+curl -Lo minikube https://storage.googleapis.com/minikube/releases/v0.24.1/minikube-linux-amd64 
+chmod +x minikube 
+sudo mv minikube /usr/local/bin/
