@@ -74,4 +74,16 @@ echo -e "\n[TEST] ack-grep version"
 ack-grep --version
 ack-grep --version | grep "ack-grep 2.12"
 
+echo -e "\n[TEST] gcloud version"
+gcloud version
+gcloud version | grep "183.0.0"
+
+echo -e "\n[TEST] kubectl version"
+kubectl version --client 
+kubectl version --client | grep "1.8.4"
+
+echo -e "\n[TEST] minikube version"
+minikube version 
+minikube version | grep "0.24.1"
+
 echo -e "\nTests passed"
