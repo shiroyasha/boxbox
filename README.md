@@ -8,14 +8,11 @@ Simple, no bullshit development box, ideal for docker based development.
 
 ## Installation
 
-First, make sure that you have Vagrant, VirtualBox installed:
+Install Vagrant and VirtualBox:
 
 ```
-$ vagrant --version
-Vagrant 1.8.1
-
-$ vboxmanage --version
-5.0.4r102546
+$ brew cask install vagrant
+$ brew cask install virtualbox
 ```
 
 Install vagrant host manager:
