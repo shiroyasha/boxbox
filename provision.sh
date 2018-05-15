@@ -11,7 +11,7 @@ curl -L https://get.docker.com | bash > /dev/null
 sudo usermod -aG docker vagrant
 
 echo "[PROVISIONER] Installing Basic Tools"
-sudo apt-get install -y htop git vim tmux zsh curl wget build-essential xauth ack-grep python-pip
+sudo apt-get install -y htop git vim tmux zsh curl wget build-essential xauth ack-grep python-pip software-properties-common python-software-properties
 
 echo "[PROVISIONER] Installing Firefox"
 wget https://sourceforge.net/projects/ubuntuzilla/files/mozilla/apt/pool/main/f/firefox-mozilla-build/firefox-mozilla-build_46.0.1-0ubuntu1_amd64.deb
@@ -88,6 +88,6 @@ sudo apt-get update -qq
 sudo apt-get install -y google-cloud-sdk kubectl
 
 echo "[PROVISIONER] Installing minikube"
-curl -Lo minikube https://storage.googleapis.com/minikube/releases/v0.24.1/minikube-linux-amd64 
-chmod +x minikube 
+curl -Lo minikube https://storage.googleapis.com/minikube/releases/v0.24.1/minikube-linux-amd64
+chmod +x minikube
 sudo mv minikube /usr/local/bin/
