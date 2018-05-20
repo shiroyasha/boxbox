@@ -8,7 +8,7 @@ echo -e "\n[TEST] Testing shell"
 cat /etc/passwd | grep "vagrant" | grep "/bin/zsh"
 
 echo -e "\n[TEST] Testing timezone"
-date | grep "CET"
+date | grep "[CET|CEST]"
 
 echo -e "\n[TEST] Testing vim version"
 vim --version
@@ -79,11 +79,11 @@ gcloud version
 gcloud version | grep "183.0.0"
 
 echo -e "\n[TEST] kubectl version"
-kubectl version --client 
+kubectl version --client
 kubectl version --client | grep "1.8.4"
 
 echo -e "\n[TEST] minikube version"
-minikube version 
+minikube version
 minikube version | grep "0.24.1"
 
 echo -e "\nTests passed"
