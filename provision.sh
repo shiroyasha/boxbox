@@ -2,16 +2,44 @@
 
 set -eou pipefail
 
-echo "[PROVISIONER] Installing Docker"
-curl -L https://get.docker.com | bash > /dev/null
-sudo usermod -aG docker vagrant
+echo "[PROVISIONER] Set up timezone to Belgrade"
+sudo rm -rf /etc/localtime
+sudo ln -s /usr/share/zoneinfo/Europe/Belgrade /etc/localtime
+
+if ! which docker; then
+  echo "[PROVISIONER] Installing Docker"
+  curl -L https://get.docker.com | bash > /dev/null
+  sudo usermod -aG docker vagrant
+
+fi
+
+if ! which docker; then
+  echo "[PROVISIONER] Installing Docker Compose"
+  sudo curl -L https://github.com/docker/compose/releases/download/1.18.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+  sudo chmod +x /usr/local/bin/docker-compose
+fi
 
 echo "[PROVISIONER] Installing Basic Tools"
-sudo apt-get install -y htop git vim tmux zsh curl wget build-essential xauth
+sudo apt-get install -y htop git vim tmux zsh curl wget build-essential xauth ack-grep python-pip software-properties-common python-software-properties
 
-echo "[PROVISIONER] Installing Firefox"
-wget https://sourceforge.net/projects/ubuntuzilla/files/mozilla/apt/pool/main/f/firefox-mozilla-build/firefox-mozilla-build_46.0.1-0ubuntu1_amd64.deb
-sudo dpkg -i firefox-mozilla-build_46.0.1-0ubuntu1_amd64.deb
+if ! (which firefox > /dev/null) && ! (firefox -v | grep "$firefox_version" > /dev/null); then 
+  echo "[PROVISIONER] Installing Firefox"
+
+  firefox_version="46.0.1"
+  firefox_archive="firefox-${firefox_version}.tar.bz2"
+  firefox_install_dir="/opt/firefox/${firefox_version}"
+  firefox_bin_path="${firefox_install_dir}/firefox/firefox"
+
+  sudo apt-get install -y libgtk-3-dev libasound2 libxt-dev
+
+  wget -nc "https://ftp.mozilla.org/pub/firefox/releases/${firefox_version}/linux-x86_64/en-US/${firefox_archive}"
+
+  sudo mkdir -p $firefox_install_dir
+  sudo tar xf $firefox_archive -C $firefox_install_dir
+  sudo ln -fs $firefox_bin_path /usr/bin/firefox
+
+  rm -f $firefox_archive
+fi
 
 echo "[PROVISIONER] Setting up zsh"
 sudo chsh -s /bin/zsh vagrant
@@ -25,15 +53,17 @@ wget https://github.com/github/hub/releases/download/v2.2.9/hub-linux-amd64-2.2.
 tar xvzf hub-linux-amd64-2.2.9.tgz
 cd hub-linux-amd64-2.2.9 && sudo chmod +x install && sudo ./install && cd -
 
-echo "[PROVISIONER] Installing Docker Compose"
-curl -s https://bootstrap.pypa.io/get-pip.py -o /tmp/pip.py
-sudo python /tmp/pip.py > /dev/null
-sudo pip install docker-compose > /dev/null
-
 echo "[PROVISIONER] Installing postgresql"
-sudo apt-get install -y postgresql postgresql-contrib
+sudo add-apt-repository "deb https://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main"
+wget --quiet -O - https://postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+sudo apt-get update
+sudo apt-get install -y postgresql-client-9.4 postgresql-9.4 postgresql-contrib-9.4 libpq-dev postgresql-server-dev-9.4
 sudo update-rc.d postgresql enable
 sudo service postgresql start
+
+echo "[PROVISIONER] Creating postgres user 'developer' with CREATEDB privilege"
+sudo -u postgres bash -c "psql -c \"CREATE USER developer WITH PASSWORD 'developer';\""
+sudo -u postgres bash -c "psql -c \"ALTER USER developer CREATEDB;\""
 
 echo "[PROVISIONER] Installing rabbitmq"
 echo 'deb http://www.rabbitmq.com/debian/ testing main' | sudo tee /etc/apt/sources.list.d/rabbitmq.list
@@ -55,9 +85,29 @@ echo "[PROVISIONER] Installing node.js"
 curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
 sudo apt-get install -y nodejs
 
+echo "[PROVISIONER] Installing yarn"
+sudo npm install -g yarn
+
 echo "[PROVISIONER] Installing ruby"
 sudo apt-get -y install software-properties-common
 sudo apt-add-repository ppa:brightbox/ruby-ng
 sudo apt-get update
-sudo apt-get -y install ruby2.3
+sudo apt-get -y install ruby2.3 ruby2.3-dev
 sudo gem install bundler
+
+echo "[PROVISIONER] Installing awscli"
+pip install awscli --upgrade --user
+echo "export PATH=~/.local/bin:\$PATH" >> ~/.zshrc
+echo "export PATH=~/.local/bin:\$PATH" >> ~/.bashrc
+
+echo "[PROVISIONER] Installing gcloud and kubectl"
+export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)"
+echo "deb http://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+sudo apt-get update -qq
+sudo apt-get install -y google-cloud-sdk kubectl
+
+echo "[PROVISIONER] Installing minikube"
+curl -Lo minikube https://storage.googleapis.com/minikube/releases/v0.24.1/minikube-linux-amd64
+chmod +x minikube
+sudo mv minikube /usr/local/bin/
